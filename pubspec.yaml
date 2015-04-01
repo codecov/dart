@@ -1,0 +1,9 @@
+name: dart_codecov_generator
+description: >
+  Generates HTML lcov coverage reports for dart projects.(UNIX only)
+  relies on:
+  - coverage.dart (`pub global activate coverage`),
+  - genhtml (part of lcov),
+  - lsof (standard unix utility)
+dependencies:
+dev_dependencies:
