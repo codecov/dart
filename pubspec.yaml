@@ -6,4 +6,7 @@ description: >
   - genhtml (part of lcov),
   - lsof (standard unix utility)
 dependencies:
+  args: any
 dev_dependencies:
+executables:
+  generate_coverage:
