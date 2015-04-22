@@ -65,11 +65,11 @@ Future<Process> attemptToRunTests(String file) {
   var completer = new Completer<Process>();
   Process.start('dart', ['--observe=8444', file]).then((Process p) {
     p.stdout.transform(UTF8.decoder).takeWhile((_) => !completer.isCompleted).listen((data) {
-      var failed = new RegExp(r"SocketException");
+      var failed = new RegExp(r"Some tests failed.");
       if (failed.hasMatch(data)) {
-        completer.completeError("SocketException");
+        completer.completeError("Some tests failed.");
       }
-      var passed = new RegExp(r"unittest-suite-success");
+      var passed = new RegExp(r"All tests passed!");
       if (passed.hasMatch(data)) {
         completer.complete(p);
       }
