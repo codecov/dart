@@ -51,7 +51,7 @@ main(List<String> arguments) async {
 
 
   if (genHtml) {
-    print('Coverge generated. Open lcov_report/index.html');
+    print('Coverage generated. Open lcov_report/index.html');
   } else {
     print('Coverage generated.  Results saved to lcov_coverage.lcov');
   }
