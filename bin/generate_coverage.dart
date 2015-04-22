@@ -23,7 +23,7 @@ main(List<String> arguments) async {
     testProcess = await attemptToRunTests(file);
   } catch (e) {
     var port = await pidOfPort();
-    print('failed.  A process with PID $port is occupying :8444');
+    print('Tests may have failed or a process with PID $port may be occupying :8444\n\n$e');
     exit(1);
   }
 
