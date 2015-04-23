@@ -32,10 +32,11 @@ main(List<String> arguments) async {
 
   print('running coverage');
   await Process.run(
-      'pub', ['coverage:collect_coverage', '--port=8444', '-o', '$tmpFolder/coverage.json', '--resume-isolates']);
+      'pub', ['run', 'coverage:collect_coverage', '--port=8444', '-o', '$tmpFolder/coverage.json', '--resume-isolates']);
 
   print('formatting coverage');
   await Process.run('pub', [
+    'run',
     'coverage:format_coverage',
     '-l',
     '--package-root=packages',
