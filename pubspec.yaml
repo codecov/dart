@@ -7,7 +7,6 @@ description: >
   - lsof (standard unix utility)
 dependencies:
   args: any
-dev_dependencies:
   coverage: '>=0.6.1 <0.7.0'
 executables:
   generate_coverage:
