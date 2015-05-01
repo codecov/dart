@@ -24,5 +24,5 @@ pub global activate --source git git@github.com:johnpryan/dart_codecov_generator
 then
 
 ```
-dart_codecov_generator test/my_test.dart
+generate_coverage test/my_test.dart
 ```
