@@ -1,28 +1,54 @@
-# dart codecov generator
+# Dart Code Coverage Generator
 
-generate coverage for dart projects.
+> Generate code coverage for Dart projects. Output can be [lcov](http://ltp.sourceforge.net/coverage/lcov.php) format or an HTML report.
 
-This project automatically runs a test file,
-runs `collect_coverage`, and uses `format_coverage` to format the results as LCOV
+This project includes a `generate_coverage` executable that runs one or many test files and uses the `coverage` package to collect coverage for each file and format the coverage into the desired output format.
 
-## Installation
+
+## Prerequisites
 Depends on the following utilities:
 
-- coverage.dart (`pub global activate coverage`),
 - genhtml (`brew install lcov` on a mac)
 - lsof (standard unix utility)
 
-```
-pub global activate --source git git@github.com:johnpryan/dart_codecov_generator.git
+
+## Installation
+
+Add this to your package's pubspec.yaml file:
+```yaml
+dependencies:
+  coverage:
+    git:
+      url: git@github.com:ekweible/coverage.git
+      ref: master
+  dart_codecov_generator:
+    git:
+      url: git@github.com:ekweible/dart_codecov_generator.git
+      ref: master
 ```
 
-## Using
+Install:
+```
+pub get
+```
 
-```
-pub global activate --source git git@github.com:johnpryan/dart_codecov_generator.git
-```
-then
 
+## Usage
 ```
-dart_codecov_generator test/my_test.dart
+pub run dart_codecov_generator:generate_coverage
 ```
+
+
+## Configuration
+By default, this tool runs every test file in the `test/` directory. You can explicitly specify the directories or files like so:
+```
+dart_codecov_generator:generate_coverage test/my_test.dart
+```
+
+### Options
+- `--report-on`: Which directories or files to report coverage on. For example, `--report-on=lib/`.
+
+### Flags
+- `--html`: Whether or not to generate the HTML report. Defaults to true.
+- `--lcov`: Whether or not to generate the .lcov file. Defaults to true.
+- `--verbose`: Toggle verbose output to stdout.
