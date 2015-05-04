@@ -6,8 +6,6 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 
-import 'env.dart' show env;
-
 
 const int _defaultObservatoryPort = 8444;
 
