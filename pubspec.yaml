@@ -9,8 +9,16 @@ dev_dependencies:
     git:
       url: https://github.com/ekweible/coverage.git
       ref: master
+  dart_coveralls:
+    git:
+      url: https://github.com/ekweible/dart-coveralls.git
+      ref: report-without-calc
   test: 0.12.0
 dependency_overrides:
+  coverage:
+    git:
+      url: https://github.com/ekweible/coverage.git
+      ref: master
   logging: '>=0.10.0 <0.11.0'
 executables:
   generate_coverage:
