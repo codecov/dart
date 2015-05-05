@@ -25,7 +25,7 @@ dependencies:
   dart_codecov_generator:
     git:
       url: git@github.com:ekweible/dart_codecov_generator.git
-      ref: master
+      ref: 0.1.0
 ```
 
 Install:
