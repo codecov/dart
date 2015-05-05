@@ -4,4 +4,4 @@ dart:
 script:
   - pub run test
   - pub run dart_codecov_generator:generate_coverage --report-on=bin/ --no-html --verbose
-  - curl -X POST -H 'Content-Type: text/lcov' -d @coverage.lcov https://codecov.io/upload/v1?token=$CODECOV_TOKEN&commit=$TRAVIS_COMMIT&branch=$TRAVIS_BRANCH&travis_job_id=$TRAVIS_JOB_ID
+  - pub run dart_codecov coverage.lcov
