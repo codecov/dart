@@ -1,5 +1,5 @@
 # Dart Code Coverage Generator
-[![Build Status](https://travis-ci.org/ekweible/dart_codecov_generator.svg?branch=master)](https://travis-ci.org/ekweible/dart_codecov_generator) [![Coverage Status](https://coveralls.io/repos/ekweible/dart_codecov_generator/badge.svg?branch=coverage)](https://coveralls.io/r/ekweible/dart_codecov_generator?branch=master)
+[![Build Status](https://travis-ci.org/ekweible/dart_codecov_generator.svg?branch=master)](https://travis-ci.org/ekweible/dart_codecov_generator) [![codecov.io](http://codecov.io/github/ekweible/dart_codecov_generator/coverage.svg?branch=master)](http://codecov.io/github/ekweible/dart_codecov_generator?branch=master)
 
 > Generate code coverage for Dart projects. Output can be [lcov](http://ltp.sourceforge.net/coverage/lcov.php) format or an HTML report.
 
