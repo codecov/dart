@@ -4,4 +4,4 @@ dart:
 script:
   - pub run test
   - pub run dart_codecov_generator:generate_coverage --report-on=bin/ --no-html --verbose
-  - pub run dart_coveralls report --no-calc --debug coverage.lcov
+  - pub run dart_codecov coverage.lcov
