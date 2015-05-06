@@ -9,6 +9,9 @@ import 'env.dart' show env, setupEnv;
 import 'test.dart';
 
 
+const String _testFilePattern = '_test.dart';
+
+
 void print_log(LogRecord record) {
   if (env.verbose || record.level >= Level.SEVERE) {
     print(record.message);
@@ -52,7 +55,18 @@ main(List<String> args) async {
   env.filePaths.forEach((String filePath) {
     if (FileSystemEntity.isDirectorySync(filePath)) {
       List<FileSystemEntity> children = new Directory(filePath).listSync(recursive: true);
-      testFiles.addAll(children.where((FileSystemEntity e) => e is File && !((Uri.parse(e.path)).pathSegments.contains('packages'))).map((FileSystemEntity e) => e.path));
+      Iterable<FileSystemEntity> validChildren = children.where((FileSystemEntity e) {
+        Uri uri = Uri.parse(e.path);
+        return (
+            // Is a file, not a directory
+            e is File &&
+            // Is not a package dependency file
+            !(Uri.parse(e.path).pathSegments.contains('packages')) &&
+            // Is a valid test file (ends with `_test.dart`)
+            e.path.endsWith(_testFilePattern)
+        );
+      });
+      testFiles.addAll(validChildren.map((FileSystemEntity e) => e.path));
     } else if (FileSystemEntity.isFileSync(filePath)) {
       testFiles.add(filePath);
     }
