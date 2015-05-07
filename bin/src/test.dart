@@ -97,7 +97,7 @@ class BrowserTest extends Test {
   }
 
   File generateHtmlTestFile() {
-    File html = new File('${dartTestFile.parent.path}/__temp_dart_html_test.html');
+    File html = new File('${dartTestFile.path}.temp_html_test.html');
     html.createSync();
     String testPath = Uri.parse(dartTestFile.path).pathSegments.last;
     html.writeAsStringSync('<script type="application/dart" src="$testPath"></script>');
