@@ -43,7 +43,7 @@ pub run dart_codecov_generator
 ## Configuration
 By default, this tool runs every test file in the `test/` directory. You can explicitly specify the directories or files like so:
 ```
-pub run dart_codecov_generator test/my_test.dart
+generate_coverage test/my_test.dart
 ```
 
 ### Options
