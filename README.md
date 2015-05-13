@@ -20,11 +20,11 @@ Add this to your package's pubspec.yaml file:
 dependencies:
   coverage:
     git:
-      url: git@github.com:ekweible/coverage.git
+      url: git@github.com:johnpryan/coverage.git
       ref: master
   dart_codecov_generator:
     git:
-      url: git@github.com:ekweible/dart_codecov_generator.git
+      url: git@github.com:johnpryan/dart_codecov_generator.git
       ref: 0.1.0
 ```
 
