@@ -49,8 +49,11 @@ class Coverage {
     Logger log = new Logger('dcg');
     bool testSuccess = await test.run();
     if (!testSuccess) {
-      log.info(await test.process.stderr.transform(UTF8.decoder).join(''));
+      try {
+        log.info(await test.process.stderr.transform(UTF8.decoder).join(''));
+      } catch(e) {}
       log.severe('Testing failed.');
+      test.kill();
       return false;
     }
     int port = test is BrowserTest ? (test as BrowserTest).observatoryPort : _defaultObservatoryPort;

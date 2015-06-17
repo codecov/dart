@@ -52,9 +52,9 @@ class BrowserTest extends Test {
       _tempHtmlTestFile = htmlTestFile;
     }
 
-    log.info('Running tests from ${dartTestFile.path} in dartium...');
+    log.info('Running tests from ${dartTestFile.path} in content-shell...');
     process = await Process.start(
-        'dartium',
+        'content_shell',
         [
           '--remote-debugging-port=$_defaultObservatoryPort',
           '--disable-extensions',
@@ -69,24 +69,37 @@ class BrowserTest extends Test {
         environment: {'DART_FLAGS': '--checked'}
     );
 
-    await for (String line in process.stdout.transform(UTF8.decoder).transform(new LineSplitter())) {
+    bool observatoryFailed = false;
+    Completer c = new Completer();
+    process.stdout.transform(UTF8.decoder).transform(new LineSplitter()).listen((String line) {
       log.info(line);
       if (_observatoryPortPattern.hasMatch(line)) {
         Match m = _observatoryPortPattern.firstMatch(line);
         observatoryPort = int.parse(m.group(1));
-        return true;
       }
-    }
-    return false;
+      if (line.contains(_observatoryFailPattern)) {
+        observatoryFailed = true;
+      }
+      if (observatoryFailed && line.trim() == '') {
+        log.severe('Observatory failed to start.');
+        c.complete(false);
+      }
+    });
+    process.stderr.transform(UTF8.decoder).transform(new LineSplitter()).listen((String line) {
+      log.info(line);
+      if (line.contains(_testsPassedPattern)) {
+        log.info('Tests passed.');
+        c.complete(true);
+      }
+      if (line.contains(_testsFailedPattern)) {
+        log.severe('Tests failed.');
+        c.complete(false);
+      }
+    });
+    return c.future;
   }
 
   void kill() {
-    // TODO: Remove this killPid() once content_shell closes gracefully
-    getPidOfPort(_defaultObservatoryPort).then((int pid) {
-      if (pid != null) {
-        Process.killPid(pid);
-      }
-    });
     process.kill();
   }
 
