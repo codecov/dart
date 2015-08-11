@@ -3,5 +3,5 @@ dart:
   - stable
 script:
   - pub run test
-  - pub run dart_codecov_generator --report-on=bin/ --no-html --verbose
-  - pub run dart_codecov coverage.lcov
+  - pub run dart_codecov_generator --report-on=bin/ --no-html --verbose test/env_test.dart
+  - bash <(curl -s https://codecov.io/bash)

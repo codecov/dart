@@ -1,5 +1,5 @@
 # Dart Code Coverage Generator
-[![Build Status](https://travis-ci.org/ekweible/dart_codecov_generator.svg?branch=master)](https://travis-ci.org/ekweible/dart_codecov_generator) [![codecov.io](http://codecov.io/github/ekweible/dart_codecov_generator/coverage.svg?branch=master)](http://codecov.io/github/ekweible/dart_codecov_generator?branch=master)
+[![Build Status](https://travis-ci.org/codecov/dart.svg?branch=master)](https://travis-ci.org/codecov/dart) [![codecov.io](http://codecov.io/github/codecov/dart/coverage.svg?branch=master)](http://codecov.io/github/codecov/dart?branch=master)
 
 > Generate code coverage for Dart projects. Output can be [lcov](http://ltp.sourceforge.net/coverage/lcov.php) format or an HTML report.
 
@@ -18,14 +18,8 @@ Depends on the following utilities:
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-  coverage:
-    git:
-      url: git@github.com:johnpryan/coverage.git
-      ref: master
-  dart_codecov_generator:
-    git:
-      url: git@github.com:johnpryan/dart_codecov_generator.git
-      ref: 0.1.0
+  coverage: "^0.7.0"
+  dart_codecov_generator: "^0.4.0"
 ```
 
 Install:
@@ -43,7 +37,7 @@ pub run dart_codecov_generator
 ## Configuration
 By default, this tool runs every test file in the `test/` directory. You can explicitly specify the directories or files like so:
 ```
-generate_coverage test/my_test.dart
+pub run dart_codecov_generator test/my_test.dart
 ```
 
 ### Options
