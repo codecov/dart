@@ -24,7 +24,7 @@ dependencies:
 
 Install:
 ```
-pub get
+pub get --packages-dir
 ```
 
 
