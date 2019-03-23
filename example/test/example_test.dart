@@ -1,5 +1,6 @@
-import "package:codecov_generator_example/example.dart";
-import "package:unittest/unittest.dart";
+import 'package:test/test.dart';
+
+import '../lib/example.dart';
 
 main() {
   group('sayHello', () {

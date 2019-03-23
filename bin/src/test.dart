@@ -83,7 +83,7 @@ class BrowserTest extends Test {
 
     bool observatoryFailed = false;
     Completer c = new Completer();
-    process.stdout.transform(UTF8.decoder).transform(new LineSplitter()).listen((String line) {
+    process.stdout.transform(utf8.decoder).transform(new LineSplitter()).listen((String line) {
       log.info(line);
       if (_observatoryPortPattern.hasMatch(line)) {
         Match m = _observatoryPortPattern.firstMatch(line);
@@ -97,7 +97,7 @@ class BrowserTest extends Test {
         c.complete(false);
       }
     });
-    process.stderr.transform(UTF8.decoder).transform(new LineSplitter()).listen((String line) {
+    process.stderr.transform(utf8.decoder).transform(new LineSplitter()).listen((String line) {
       log.info(line);
       if (line.contains(_testsPassedPattern)) {
         log.info('Tests passed.');
@@ -144,7 +144,7 @@ class VMTest extends Test {
     );
 
     bool observatoryFailed = false;
-    await for (String line in process.stdout.transform(UTF8.decoder).transform(new LineSplitter())) {
+    await for (String line in process.stdout.transform(utf8.decoder).transform(new LineSplitter())) {
       log.info(line);
       if (line.contains(_observatoryFailPattern)) {
         observatoryFailed = true;

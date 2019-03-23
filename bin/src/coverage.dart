@@ -37,15 +37,15 @@ class Coverage {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
 
-    Map mergedJson = JSON.decode(await coverages[0].collectionOutput.readAsString());
+    Map mergedJson = json.decode(await coverages[0].collectionOutput.readAsString());
     for (int i = 1; i < coverages.length; i++) {
-      Map coverageJson = JSON.decode(await coverages[i].collectionOutput.readAsString());
+      Map coverageJson = json.decode(await coverages[i].collectionOutput.readAsString());
       _mergeCoveragePayloads(mergedJson, coverageJson);
     }
 
     merged.collectionOutput = new File('${merged._tempCoverageDir.path}/coverage.json');
     merged.collectionOutput.createSync();
-    merged.collectionOutput.writeAsStringSync(JSON.encode(mergedJson));
+    merged.collectionOutput.writeAsStringSync(json.encode(mergedJson));
     return merged;
   }
 
@@ -62,7 +62,7 @@ class Coverage {
     bool testSuccess = await test.run();
     if (!testSuccess) {
       try {
-        log.info(await test.process.stderr.transform(UTF8.decoder).join(''));
+        log.info(await test.process.stderr.transform(utf8.decoder).join(''));
       } catch(e) {}
       log.severe('Testing failed.');
       test.kill();
