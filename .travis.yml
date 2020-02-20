@@ -1,6 +1,8 @@
 language: dart
 dart:
   - stable
+before_install:
+  - sudo apt-get -y install glibc
 script:
   - pub get --packages-dir
   - pub run test
