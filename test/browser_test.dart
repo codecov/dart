@@ -1,4 +1,4 @@
-@TestOn('content-shell')
+@TestOn('browser')
 library dart_codecov_generator.test.browser_test;
 
 import 'dart:html';
