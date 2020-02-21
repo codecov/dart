@@ -2,7 +2,7 @@ language: dart
 dart:
   - stable
 before_install:
-  - sudo apt-get -y install glibc
+  - sudo apt-get -y install libc6
 script:
   - pub get --packages-dir
   - pub run test
