@@ -6,7 +6,7 @@ authors:
   - Evan Weible <ekweible@gmail.com>
 homepage: https://github.com/codecov/dart
 dependencies:
-  args: "1.5.2"
+  args: "^1.5.0"
   logging: ">=0.9.0 <0.12.0"
 dev_dependencies:
   coverage: "0.13.6"
