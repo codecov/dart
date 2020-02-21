@@ -6,10 +6,10 @@ authors:
   - Evan Weible <ekweible@gmail.com>
 homepage: https://github.com/codecov/dart
 dependencies:
-  args: ">=0.10.0 <0.14.0"
+  args: "1.4.0"
   logging: ">=0.9.0 <0.12.0"
 dev_dependencies:
-  coverage: "^0.13.6"
+  coverage: "0.13.6"
   test: "^0.12.0"
 executables:
   dart_codecov_generator:
