@@ -1,10 +1,15 @@
 language: dart
 dart:
-# Install the latest stable release
-- stable
-# Install the latest dev release
-- dev
-# Install a specific stable release - 1.15.0
-- "1.15.0"
-# Install a specific dev release, using a partial download URL - 1.16.0-dev.3.0
-- "dev/release/1.16.0-dev.3.0"
+  # Install the latest stable release
+  - stable
+  # Install the latest dev release
+  - dev
+  # Install a specific stable release
+  - "2.9"
+  # Install a specific dev release, using a partial download URL - 2.10.0-4.0.dev
+  - "dev/release/2.10.0-4.0.dev"
+script:
+  - pub get --packages-dir
+  - pub run test
+  - pub run dart_codecov_generator --report-on=bin/ --no-html --verbose test/env_test.dart
+  - bash <(curl -s https://codecov.io/bash)
