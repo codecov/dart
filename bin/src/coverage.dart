@@ -75,11 +75,9 @@ class Coverage {
     log.info(collectionOutput.path);
     ProcessResult pr = await Process.run('pub', [
       'run',
-      'coverage:collect_coverage',
-      '--port=$port',
-      '-o',
-      collectionOutput.path,
-      '--resume-isolates',
+      'test',
+      '--coverage',
+      _tempCoverageDir.path,
     ]);
     log.info('Coverage collected');
 
