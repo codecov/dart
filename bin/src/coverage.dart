@@ -80,6 +80,7 @@ class Coverage {
       collectionOutput.path,
       '--resume-isolates',
     ]);
+    log.info('Coverage collected');
 
     test.kill();
 
