@@ -72,6 +72,7 @@ class Coverage {
 
     log.info('Collecting coverage...');
     collectionOutput = new File('${_tempCoverageDir.path}/coverage.json');
+    log.info(collectionOutput.path);
     ProcessResult pr = await Process.run('pub', [
       'run',
       'coverage:collect_coverage',
