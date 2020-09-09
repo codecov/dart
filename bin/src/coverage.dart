@@ -78,6 +78,7 @@ class Coverage {
       'test',
       '--coverage',
       _tempCoverageDir.path,
+      '--verbose',
     ]);
     log.info('Coverage collected');
 
