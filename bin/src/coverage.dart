@@ -96,9 +96,10 @@ class Coverage {
 
     test.kill();
 
-    log.info(pr.stdout);
+    log.shout('made it here');
+    log.shout(pr.stdout);
     if (pr.exitCode == 0) {
-      log.info('Coverage collected.');
+      log.shout('Coverage collected.');
       return true;
     } else {
       log.shout(pr.stderr);

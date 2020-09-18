@@ -16,5 +16,5 @@ script:
   - pub get --packages-dir
   - pub global activate coverage
   - pub run test
-  - pub run dart_codecov_generator --report-on=bin/ test/env_test.dart
+  - pub run dart_codecov_generator --report-on=bin/ --verbose test/env_test.dart
   - bash <(curl -s https://codecov.io/bash)
