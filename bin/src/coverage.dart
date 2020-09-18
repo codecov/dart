@@ -165,12 +165,12 @@ class Coverage {
     }
   }
 
-  void cleanUp() {
+  void cleanUp(bool recursive = false) {
     if (test != null) {
       test.cleanUp();
     }
     if (_tempCoverageDir != null) {
-      _tempCoverageDir.deleteSync();
+      _tempCoverageDir.deleteSync(recursive: recursive);
     }
   }
 }
