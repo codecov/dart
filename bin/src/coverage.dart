@@ -81,7 +81,7 @@ class Coverage {
     log.shout('Test if temp directory exists');
     bool dirExists = await Directory(_tempCoverageDir.path).exists();
     log.shout('Directory: ${dirExists}');
-    collectionOutput = new File('${_tempCoverageDir.path}/coverage.json');
+    collectionOutput = new File('${_tempCoverageDir.path}/test');
     log.shout(collectionOutput.path);
     log.shout('File exists?');
     bool fileExists = await File(collectionOutput.path).exists();
