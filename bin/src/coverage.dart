@@ -38,7 +38,6 @@ class Coverage {
     Coverage merged = new Coverage(null);
 
     Logger log = new Logger('dcg');
-    log.shout('did it');
     Directory parent = coverages[0].collectionOutput.parent;
     log.shout(parent);
     log.shout(parent.listSync());
@@ -78,14 +77,7 @@ class Coverage {
     int port = test is BrowserTest ? (test as BrowserTest).observatoryPort : _defaultObservatoryPort;
 
     log.shout('Collecting coverage...');
-    log.shout('Test if temp directory exists');
-    bool dirExists = await Directory(_tempCoverageDir.path).exists();
-    log.shout('Directory: ${dirExists}');
-    collectionOutput = new File('${_tempCoverageDir.path}/test');
-    log.shout(collectionOutput.path);
-    log.shout('File exists?');
-    bool fileExists = await File(collectionOutput.path).exists();
-    log.shout('File: ${fileExists}');
+
     ProcessResult pr = await Process.run('pub', [
       'run',
       'test',
@@ -96,8 +88,17 @@ class Coverage {
 
     test.kill();
 
-    log.shout('made it here');
     log.shout(pr.stdout);
+    Directory coverageDir = new Directory('${_tempCoverageDir.path}/test');
+    List<FileSystemEntity> entities = coverageDir.listSync()
+    if (entities.length == 1 && entities[0] is File) {
+      collectionOutput = entities[0]
+    } else {
+      log.shout('Multiple or no coverage files detected: ${entities}');
+      log.severe('Coverage collection failed.');
+    }
+    log.shout(collectionOutput.path);
+
     if (pr.exitCode == 0) {
       log.shout('Coverage collected.');
       return true;
