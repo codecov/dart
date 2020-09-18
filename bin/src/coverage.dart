@@ -52,7 +52,7 @@ class Coverage {
         }
       }
     }
-    log.shout('Found ${coverageDir.listSync().length} files in ${coverageDir.path}')
+    log.shout('Found ${coverageDir.listSync().length} files in ${coverageDir.path}');
     return merged;
   }
 
