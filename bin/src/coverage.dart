@@ -101,10 +101,10 @@ class Coverage {
     List<String> args = [
       'run',
       'coverage:format_coverage',
-      '-l',
-      '--package-root=packages',
+      '--lcov',
+      '--packages=.packages',
       '-i',
-      _tempCoverageDir.path,
+      '${_tempCoverageDir.path}/*.vm.json',
       '-o',
       lcovOutput.path,
     ];
