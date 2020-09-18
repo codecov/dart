@@ -44,7 +44,10 @@ class Coverage {
     bool exists = await Directory(coverageDir.path).exists();
     log.shout('coverageDir: ${coverageDir.path} | ${exists}');
 
+    log.shout('coverages: ${coverages});
+
     for (int i = 1; i < coverages.length; i++) {
+      log.shout('coverage: ${coverage}, i: ${i}');
       Directory entityDir = new Directory('${coverages[i]._tempCoverageDir}/test');
       log.shout('EntityDir: ${entityDir}');
       List<FileSystemEntity> entities = entityDir.listSync();
