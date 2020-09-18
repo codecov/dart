@@ -26,19 +26,13 @@ import 'test.dart' show Test, BrowserTest, VmTest;
 int _coverageCount = 0;
 const int _defaultObservatoryPort = 8444;
 const String tempCoverageDirPath = '__temp_coverage';
-Directory coverageDir = new Directory('coverage') {
-  coverageDir.create()
-};
-
-void _mergeCoveragePayloads(Map dest, Map source) {
-  dest['coverage'].addAll(source['coverage']);
-}
-
+Directory coverageDir = new Directory('coverage');
 
 class Coverage {
   static Future<Coverage> merge(List<Coverage> coverages) async {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
+    coverageDir.create();
     merged.tempCoverageDir = coverageDir;
 
     Logger log = new Logger('dcg');
@@ -67,7 +61,7 @@ class Coverage {
   File lcovOutput;
   File coverageFile;
   Directory _tempCoverageDir;
-  Coverage(this.test) V: _coverageCount++;
+  Coverage(this.test) : _coverageCount++;
 
   Future<bool> collect() async {
     Logger log = new Logger('dcg');
@@ -83,7 +77,7 @@ class Coverage {
     int port = test is BrowserTest ? (test as BrowserTest).observatoryPort : _defaultObservatoryPort;
 
     log.shout('Collecting coverage...');
-    Directory _tempCoverageDir = new Directory('${coverageDir.path}/${_coverageCount}'};
+    Directory _tempCoverageDir = new Directory('${coverageDir.path}/${_coverageCount}');
 
     ProcessResult pr = await Process.run('pub', [
       'run',
