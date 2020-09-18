@@ -39,8 +39,12 @@ class Coverage {
     Coverage merged = new Coverage(null);
     merged._tempCoverageDir = coverageDir;
 
+    Logger log = new Logger('dcg');
     for (int i = 1; i < coverages.length; i++) {
-      List<FileSystemEntity> entities = coverages[i]._tempCoverageDir.listSync();
+      Directory entityDir = new Directory('${coverages[i]._tempCoverageDir}/test');
+      log.shout('EntityDir: ${entityDir});
+      List<FileSystemEntity> entities = entityDir.listSync();
+      log.shout('Entities ${entities}');
       for (FileSystemEntity entity in entities) {
         if (entity is File) {
           String base = path.basename(entity.path);
@@ -48,6 +52,7 @@ class Coverage {
         }
       }
     }
+    log.shout('Found ${coverageDir.listSync().length} files in ${coverageDir.path}')
     return merged;
   }
 
