@@ -24,7 +24,7 @@ import 'test.dart' show Test, BrowserTest, VmTest;
 
 int _coverageCount = 0;
 const int _defaultObservatoryPort = 8444;
-const String _tempCoverageDirPath = '_temp_coverage';
+const String _tempCoverageDirPath = '__temp_coverage';
 
 
 void _mergeCoveragePayloads(Map dest, Map source) {
@@ -71,6 +71,9 @@ class Coverage {
     int port = test is BrowserTest ? (test as BrowserTest).observatoryPort : _defaultObservatoryPort;
 
     log.info('Collecting coverage...');
+    log.info('Test if temp directory exists');
+    bool dirExists = await Directory(_tempCoverageDir.path).exists();
+    log.info('Directory: ${dirExists}');
     collectionOutput = new File('${_tempCoverageDir.path}/coverage.json');
     log.info(collectionOutput.path);
     ProcessResult pr = await Process.run('pub', [
