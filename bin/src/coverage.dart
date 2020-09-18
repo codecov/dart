@@ -37,6 +37,7 @@ class Coverage {
   static Future<Coverage> merge(List<Coverage> coverages) async {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
+    coverageDir.create();
     merged._tempCoverageDir = coverageDir;
 
     Logger log = new Logger('dcg');
