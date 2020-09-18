@@ -82,15 +82,13 @@ class Coverage {
     bool fileExists = await File(collectionOutput.path).exists();
     log.shout('File: ${fileExists}');
     ProcessResult pr = await Process.run('pub', [
+      'global',
       'run',
-      'test',
-      '--coverage',
-      _tempCoverageDir.path,
-      '-r',
-      'json',
-      '--verbose-trace',
-      '--file-reporter',
-      'json:${collectionOutput.path}'
+      'coverage:collect_coverage',
+      '--port=$port',
+      '-o',
+      collectionOutput.path,
+      '--resume-isolates'
     ]);
     log.info('Coverage collected');
 
