@@ -92,7 +92,7 @@ class Coverage {
     Directory coverageDir = new Directory('${_tempCoverageDir.path}/test');
     List<FileSystemEntity> entities = coverageDir.listSync()
     if (entities.length == 1 && entities[0] is File) {
-      collectionOutput = entities[0]
+      collectionOutput = entities[0];
     } else {
       log.shout('Multiple or no coverage files detected: ${entities}');
       log.severe('Coverage collection failed.');
