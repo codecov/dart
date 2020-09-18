@@ -70,12 +70,12 @@ class Coverage {
     }
     int port = test is BrowserTest ? (test as BrowserTest).observatoryPort : _defaultObservatoryPort;
 
-    log.info('Collecting coverage...');
-    log.info('Test if temp directory exists');
+    log.shout('Collecting coverage...');
+    log.shout('Test if temp directory exists');
     bool dirExists = await Directory(_tempCoverageDir.path).exists();
-    log.info('Directory: ${dirExists}');
+    log.shout('Directory: ${dirExists}');
     collectionOutput = new File('${_tempCoverageDir.path}/coverage.json');
-    log.info(collectionOutput.path);
+    log.shout(collectionOutput.path);
     ProcessResult pr = await Process.run('pub', [
       'run',
       'test',
