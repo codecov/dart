@@ -26,7 +26,9 @@ import 'test.dart' show Test, BrowserTest, VmTest;
 int _coverageCount = 0;
 const int _defaultObservatoryPort = 8444;
 const String tempCoverageDirPath = '__temp_coverage';
-Directory coverageDir = new Directory('coverage');
+Directory coverageDir = new Directory('coverage') {
+  coverageDir.create()
+};
 
 void _mergeCoveragePayloads(Map dest, Map source) {
   dest['coverage'].addAll(source['coverage']);
@@ -37,42 +39,35 @@ class Coverage {
   static Future<Coverage> merge(List<Coverage> coverages) async {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
-    coverageDir.create();
     merged.tempCoverageDir = coverageDir;
-    Logger log = new Logger('dcg');
 
+    Logger log = new Logger('dcg');
     bool exists = await Directory(coverageDir.path).exists();
     log.shout('coverageDir: ${coverageDir.path} | ${exists}');
-
     log.shout('coverages: ${coverages}');
 
     for (int i = 0; i < coverages.length; i++) {
       log.shout('coverage: ${coverages[i]}, i: ${i}');
-      Directory entityDir = new Directory('${coverages[i].tempCoverageDir}/test');
-      log.shout('EntityDir: ${entityDir}');
-      List<FileSystemEntity> entities = entityDir.listSync();
-      log.shout('Entities ${entities}');
-      for (FileSystemEntity entity in entities) {
-        if (entity is File) {
-          String base = path.basename(entity.path);
-          log.shout('Renaming: ${entity.path} to ${coverageDir.path}/$base');
-          entity.rename('${coverageDir.path}/$base');
 
-          bool fileExists = await File('${coverageDir.path}/$base-$i').exists();
-          log.shout('it exists now?: ${fileExists}');
-        }
+      if (coverages[i].coverageFile) {
+        File coverageFile = coverages[i].coverageFile;
+        String base = path.basename(coverageFile.path);
+        log.shout('Renaming: ${coverageFile.path} to ${coverageDir.path}/$base');
+        entity.rename('${coverageDir.path}/$i-$base');
+
+        bool fileExists = await File('${coverageDir.path}/$i-$base').exists();
       }
     }
+
     log.shout('Found ${coverageDir.listSync().length} files in ${coverageDir.path}');
     return merged;
   }
 
   Test test;
   File lcovOutput;
-  Directory tempCoverageDir;
-  Coverage(this.test) : tempCoverageDir = new Directory('$tempCoverageDirPath${_coverageCount++}') {
-    tempCoverageDir.create();
-  }
+  File coverageFile;
+  Directory _tempCoverageDir;
+  Coverage(this.test) V: _coverageCount++;
 
   Future<bool> collect() async {
     Logger log = new Logger('dcg');
@@ -88,17 +83,23 @@ class Coverage {
     int port = test is BrowserTest ? (test as BrowserTest).observatoryPort : _defaultObservatoryPort;
 
     log.shout('Collecting coverage...');
+    Directory _tempCoverageDir = new Directory('${coverageDir.path}/${_coverageCount}'};
 
     ProcessResult pr = await Process.run('pub', [
       'run',
       'test',
       '--coverage',
-      tempCoverageDir.path,
+      '${coverageDir.path}/{$_coverageCount}',
     ]);
     log.info('Coverage collected');
 
     test.kill();
     log.shout(pr.stdout);
+
+    List<FileSystemEntity> entities = new Directory('${_tempCoverageDir.path}/test').listSync();
+    if (entities.length == 1 && entities[0] is File) {
+      coverageFile = entities[0] as File;
+    }
 
     if (pr.exitCode == 0) {
       log.shout('Coverage collected.');
