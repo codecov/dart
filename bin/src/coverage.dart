@@ -78,7 +78,11 @@ class Coverage {
       'test',
       '--coverage',
       _tempCoverageDir.path,
-      '--verbose',
+      '-r',
+      'json',
+      '--verbose-trace',
+      '--file-report',
+      'json:${collectionOutput.path}'
     ]);
     log.info('Coverage collected');
 
