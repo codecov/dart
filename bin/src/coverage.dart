@@ -85,7 +85,7 @@ class Coverage {
       'run',
       'test',
       '--coverage',
-      '${coverageDir.path}/{$_coverageCount}',
+      '${_tempCoverageDir.path}',
     ]);
     log.info('Coverage collected');
 
@@ -96,8 +96,8 @@ class Coverage {
 
     Directory testDir = new Directory('${_tempCoverageDir.path}/test');
     log.shout('the dir ${testDir.path} exists?: ${await testDir.exists()}');
-    List<FileSystemEntity> entities = new Directory('${_tempCoverageDir.path}').listSync();
 
+    List<FileSystemEntity> entities = _tempCoverageDir.listSync();
     log.shout('entities: ${entities}');
     if (entities.length == 1 && entities[0] is File) {
       coverageFile = entities[0] as File;
