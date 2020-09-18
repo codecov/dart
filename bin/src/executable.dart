@@ -45,7 +45,6 @@ main(List<String> args) async {
   Logger log = new Logger('dcg');
   log.onRecord.listen(print_log);
   log.shout('Generating coverage...');
-  log.shout('here!');
 
   log.info('Environment:');
   log.info('\treportOn - ${env.reportOn}');

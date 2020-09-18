@@ -31,28 +31,18 @@ Directory coverageDir = new Directory('coverage');
 class Coverage {
   static Future<Coverage> merge(List<Coverage> coverages) async {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
+    Logger log = new Logger('dcg');
     Coverage merged = new Coverage(null);
     merged._tempCoverageDir = coverageDir;
 
-    Logger log = new Logger('dcg');
-    bool exists = await Directory(coverageDir.path).exists();
-    log.shout('coverageDir: ${coverageDir.path} | ${exists}');
-    log.shout('coverages: ${coverages}');
-
     for (int i = 0; i < coverages.length; i++) {
-      log.shout('coverage: ${coverages[i]}, i: ${i}');
-
       if (await coverages[i].coverageFile.exists()) {
         File coverageFile = coverages[i].coverageFile;
         String base = path.basename(coverageFile.path);
-        log.shout('Renaming: ${coverageFile.path} to ${coverageDir.path}/$base');
         coverageFile.rename('${coverageDir.path}/$i-$base');
-
-        bool fileExists = await File('${coverageDir.path}/$i-$base').exists();
       }
     }
-
-    log.shout('Found ${coverageDir.listSync().length} files in ${coverageDir.path}');
+    log.info('Merging complete');
     return merged;
   }
 
@@ -76,11 +66,10 @@ class Coverage {
       return false;
     }
     int port = test is BrowserTest ? (test as BrowserTest).observatoryPort : _defaultObservatoryPort;
-
-    log.shout('Collecting coverage...');
     Directory _tempCoverageDir = new Directory('${coverageDir.path}/${_coverageCount}');
     await _tempCoverageDir.create(recursive: true);
 
+    log.info('Collecting coverage...');
     ProcessResult pr = await Process.run('pub', [
       'run',
       'test',
@@ -90,13 +79,9 @@ class Coverage {
     log.info('Coverage collected');
 
     test.kill();
-    log.shout(pr.stdout);
-
-    log.shout('the dir ${_tempCoverageDir.path} exists?: ${await _tempCoverageDir.exists()}');
+    log.info(pr.stdout);
 
     Directory testDir = new Directory('${_tempCoverageDir.path}/test');
-    log.shout('the dir ${testDir.path} exists?: ${await testDir.exists()}');
-
     List<FileSystemEntity> entities = testDir.listSync();
     log.shout('entities: ${entities}');
     if (entities.length == 1 && entities[0] is File) {
@@ -104,10 +89,10 @@ class Coverage {
     }
 
     if (pr.exitCode == 0) {
-      log.shout('Coverage collected.');
+      log.info('Coverage collected.');
       return true;
     } else {
-      log.shout(pr.stderr);
+      log.info(pr.stderr);
       log.severe('Coverage collection failed.');
       return false;
     }
@@ -123,12 +108,10 @@ class Coverage {
       '--lcov',
       '--packages=.packages',
       '-i',
-      '${_tempCoverageDir.path}/',
+      _tempCoverageDir.path,
       '-o',
       lcovOutput.path,
     ];
-    log.shout('THESE ARE ARGS');
-    log.shout(args);
 
     if (env.reportOn != null) {
       args.addAll(env.reportOn.map((r) => '--report-on=$r'));
