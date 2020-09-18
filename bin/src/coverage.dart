@@ -38,6 +38,8 @@ class Coverage {
     Coverage merged = new Coverage(null);
 
     Logger log = new Logger('dcg');
+    log.shout('did it');
+    log.shout(coverage[0].collectionOutput);
     log.shout(await coverages[0].collectionOutput.readAsString());
     Map mergedJson = json.decode(await coverages[0].collectionOutput.readAsString());
     for (int i = 1; i < coverages.length; i++) {
