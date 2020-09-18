@@ -17,6 +17,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:path/path.dart';
 
 import 'env.dart';
 import 'test.dart' show Test, BrowserTest, VmTest;
@@ -42,7 +43,7 @@ class Coverage {
       List<FileSystemEntity> entities = coverages[i]._tempCoverageDir.listSync();
       for (FileSystemEntity entity in entities) {
         if (entity is File) {
-          String base = basename(entity.path);
+          String base = path.basename(entity.path);
           entity.rename('$coverageDir/$base');
         }
       }
