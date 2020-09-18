@@ -37,6 +37,7 @@ class Coverage {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
 
+    log.shout(await coverage[0].collectionOutput.readAsString());
     Map mergedJson = json.decode(await coverages[0].collectionOutput.readAsString());
     for (int i = 1; i < coverages.length; i++) {
       Map coverageJson = json.decode(await coverages[i].collectionOutput.readAsString());
