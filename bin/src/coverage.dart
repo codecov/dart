@@ -46,7 +46,7 @@ class Coverage {
 
     log.shout('coverages: ${coverages}');
 
-    for (int i = 1; i < coverages.length; i++) {
+    for (int i = 0; i < coverages.length; i++) {
       log.shout('coverage: ${coverages[i]}, i: ${i}');
       Directory entityDir = new Directory('${coverages[i]._tempCoverageDir}/test');
       log.shout('EntityDir: ${entityDir}');
