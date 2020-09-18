@@ -52,7 +52,7 @@ class Coverage {
       for (FileSystemEntity entity in entities) {
         if (entity is File) {
           String base = path.basename(entity.path);
-          entity.rename('$coverageDir/$base');
+          entity.rename('${coverageDir.path}/$base');
         }
       }
     }
