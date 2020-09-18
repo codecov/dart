@@ -44,7 +44,7 @@ class Coverage {
     bool exists = await Directory(coverageDir.path).exists();
     log.shout('coverageDir: ${coverageDir.path} | ${exists}');
 
-    log.shout('coverages: ${coverages});
+    log.shout('coverages: ${coverages}');
 
     for (int i = 1; i < coverages.length; i++) {
       log.shout('coverage: ${coverages[i]}, i: ${i}');
