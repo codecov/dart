@@ -81,22 +81,11 @@ class Coverage {
     log.shout('File exists?');
     bool fileExists = await File(collectionOutput.path).exists();
     log.shout('File: ${fileExists}');
-    dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=NNNN script.dart
-    log.shout('Test: ${test}');
-    ProcessResult pause = await Process.run('dart', [
-      '--pause-isolates-on-exit',
-      '--disable-service-auth-codes',
-      '--enable-vm-service=$port',
-      test
-    ]);
     ProcessResult pr = await Process.run('pub', [
-      'global',
       'run',
-      'coverage:collect_coverage',
-      '--port=$port',
-      '-o',
-      collectionOutput.path,
-      '--resume-isolates'
+      'test',
+      '--coverage',
+      _tempCoverageDir.path,
     ]);
     log.info('Coverage collected');
 
