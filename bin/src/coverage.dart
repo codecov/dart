@@ -25,7 +25,7 @@ import 'test.dart' show Test, BrowserTest, VmTest;
 int _coverageCount = 0;
 const int _defaultObservatoryPort = 8444;
 const String _tempCoverageDirPath = '__temp_coverage';
-
+Directory coverageDir = new Directory('coverage');
 
 void _mergeCoveragePayloads(Map dest, Map source) {
   dest['coverage'].addAll(source['coverage']);
@@ -36,27 +36,20 @@ class Coverage {
   static Future<Coverage> merge(List<Coverage> coverages) async {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
+    merged._tempCoverageDir = coverageDir;
 
-    Logger log = new Logger('dcg');
-    Directory parent = coverages[0].collectionOutput.parent;
-    log.shout(parent);
-    log.shout(parent.listSync());
-    log.shout(coverages[0].collectionOutput);
-    log.shout(await coverages[0].collectionOutput.readAsString());
-    Map mergedJson = json.decode(await coverages[0].collectionOutput.readAsString());
     for (int i = 1; i < coverages.length; i++) {
-      Map coverageJson = json.decode(await coverages[i].collectionOutput.readAsString());
-      _mergeCoveragePayloads(mergedJson, coverageJson);
+      entities = coverages[i]._tempCoverageDir.listSync();
+      for (FileSystemEntity entity in entities) {
+        if (entity is File) {
+          entity.rename('$coverageDir/${basename(entity.path)}';
+        }
+      }
     }
-
-    merged.collectionOutput = new File('${merged._tempCoverageDir.path}/coverage.json');
-    merged.collectionOutput.createSync();
-    merged.collectionOutput.writeAsStringSync(json.encode(mergedJson));
     return merged;
   }
 
   Test test;
-  File collectionOutput;
   File lcovOutput;
   Directory _tempCoverageDir;
   Coverage(this.test) : _tempCoverageDir = new Directory('$_tempCoverageDirPath${_coverageCount++}') {
@@ -87,17 +80,7 @@ class Coverage {
     log.info('Coverage collected');
 
     test.kill();
-
     log.shout(pr.stdout);
-    Directory coverageDir = new Directory('${_tempCoverageDir.path}/test');
-    List<FileSystemEntity> entities = coverageDir.listSync();
-    if (entities.length == 1 && entities[0] is File) {
-      collectionOutput = entities[0] as File;
-    } else {
-      log.shout('Multiple or no coverage files detected: ${entities}');
-      log.severe('Coverage collection failed.');
-    }
-    log.shout(collectionOutput.path);
 
     if (pr.exitCode == 0) {
       log.shout('Coverage collected.');
@@ -119,12 +102,13 @@ class Coverage {
       '-l',
       '--package-root=packages',
       '-i',
-      collectionOutput.path,
+      _tempCoverageDir.path,
       '-o',
       lcovOutput.path,
     ];
     log.shout('THESE ARE ARGS');
     log.shout(args);
+
     if (env.reportOn != null) {
       args.addAll(env.reportOn.map((r) => '--report-on=$r'));
     }
