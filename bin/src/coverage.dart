@@ -123,6 +123,8 @@ class Coverage {
       '-o',
       lcovOutput.path,
     ];
+    log.shout('THESE ARE ARGS');
+    log.shout(args);
     if (env.reportOn != null) {
       args.addAll(env.reportOn.map((r) => '--report-on=$r'));
     }
