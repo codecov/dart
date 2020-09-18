@@ -42,7 +42,7 @@ class Coverage {
     Logger log = new Logger('dcg');
     for (int i = 1; i < coverages.length; i++) {
       Directory entityDir = new Directory('${coverages[i]._tempCoverageDir}/test');
-      log.shout('EntityDir: ${entityDir});
+      log.shout('EntityDir: ${entityDir}');
       List<FileSystemEntity> entities = entityDir.listSync();
       log.shout('Entities ${entities}');
       for (FileSystemEntity entity in entities) {
