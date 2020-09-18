@@ -83,7 +83,6 @@ class Coverage {
 
     Directory testDir = new Directory('${_tempCoverageDir.path}/test');
     List<FileSystemEntity> entities = testDir.listSync();
-    log.shout('entities: ${entities}');
     if (entities.length == 1 && entities[0] is File) {
       coverageFile = entities[0] as File;
     }

@@ -105,7 +105,6 @@ main(List<String> args) async {
     coverages.add(coverage);
   }
 
-  log.shout(coverages);
   Coverage coverage = await Coverage.merge(coverages);
   coverages.forEach((cov) => cov.cleanUp());
   if (await coverage.format()) {
