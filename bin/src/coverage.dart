@@ -76,6 +76,9 @@ class Coverage {
     log.shout('Directory: ${dirExists}');
     collectionOutput = new File('${_tempCoverageDir.path}/coverage.json');
     log.shout(collectionOutput.path);
+    log.shout('File exists?');
+    bool fileExists = await File(collectionOutput.path).exists();
+    log.shout('File: ${fileExists}');
     ProcessResult pr = await Process.run('pub', [
       'run',
       'test',
@@ -96,7 +99,7 @@ class Coverage {
       log.info('Coverage collected.');
       return true;
     } else {
-      log.info(pr.stderr);
+      log.shout(pr.stderr);
       log.severe('Coverage collection failed.');
       return false;
     }
