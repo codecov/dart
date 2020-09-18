@@ -51,8 +51,12 @@ class Coverage {
       log.shout('Entities ${entities}');
       for (FileSystemEntity entity in entities) {
         if (entity is File) {
+          log.shout('Renaming: ${entity.path} to ${coverageDir.path}/$base');
           String base = path.basename(entity.path);
           entity.rename('${coverageDir.path}/$base');
+
+          bool fileExists = await File('${coverageDir.path}/$base').exists();
+          log.shout('it exists now?: ${fileExists}');
         }
       }
     }
