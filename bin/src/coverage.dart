@@ -24,7 +24,7 @@ import 'test.dart' show Test, BrowserTest, VmTest;
 
 int _coverageCount = 0;
 const int _defaultObservatoryPort = 8444;
-const String _tempCoverageDirPath = '__temp_coverage';
+const String _tempCoverageDirPath = '_temp_coverage';
 
 
 void _mergeCoveragePayloads(Map dest, Map source) {
