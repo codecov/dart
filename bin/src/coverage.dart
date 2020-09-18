@@ -27,7 +27,6 @@ int _coverageCount = 0;
 const int _defaultObservatoryPort = 8444;
 const String tempCoverageDirPath = '__temp_coverage';
 Directory coverageDir = new Directory('coverage');
-coverageDir.create();
 
 class Coverage {
   static Future<Coverage> merge(List<Coverage> coverages) async {
@@ -66,7 +65,6 @@ class Coverage {
   }
 
   Future<bool> collect() async {
-    _coverageCount++;
     Logger log = new Logger('dcg');
     bool testSuccess = await test.run();
     if (!testSuccess) {
@@ -81,7 +79,7 @@ class Coverage {
 
     log.shout('Collecting coverage...');
     Directory _tempCoverageDir = new Directory('${coverageDir.path}/${_coverageCount}');
-    _tempCoverageDir.create();
+    _tempCoverageDir.create(true);
 
     ProcessResult pr = await Process.run('pub', [
       'run',
