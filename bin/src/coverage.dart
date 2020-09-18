@@ -169,6 +169,8 @@ class Coverage {
     if (test != null) {
       test.cleanUp();
     }
-    _tempCoverageDir.deleteSync();
+    if (_tempCoverageDir != null) {
+      _tempCoverageDir.deleteSync();
+    }
   }
 }
