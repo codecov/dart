@@ -79,7 +79,7 @@ class Coverage {
 
     log.shout('Collecting coverage...');
     Directory _tempCoverageDir = new Directory('${coverageDir.path}/${_coverageCount}');
-    _tempCoverageDir.create(true);
+    await _tempCoverageDir.create(recursive: true);
 
     ProcessResult pr = await Process.run('pub', [
       'run',
