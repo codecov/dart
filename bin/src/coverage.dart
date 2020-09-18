@@ -165,7 +165,7 @@ class Coverage {
     }
   }
 
-  void cleanUp(bool recursive = false) {
+  void cleanUp({recursive: false}) {
     if (test != null) {
       test.cleanUp();
     }

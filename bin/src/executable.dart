@@ -123,7 +123,7 @@ main(List<String> args) async {
       exit(1);
     }
   }
-  coverage.cleanUp();
+  coverage.cleanUp(recursive: true);
 
   log.shout('\nCoverage generated!');
   if (lcovSuccess) {
