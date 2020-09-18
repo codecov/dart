@@ -98,7 +98,7 @@ class Coverage {
     Logger log = new Logger('dcg');
     log.info('Formatting coverage...');
     lcovOutput = new File('${_tempCoverageDir.path}/coverage.lcov');
-    List args = [
+    List<String> args = [
       'run',
       'coverage:format_coverage',
       '-l',
