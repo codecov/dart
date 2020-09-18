@@ -104,7 +104,7 @@ class Coverage {
       '--lcov',
       '--packages=.packages',
       '-i',
-      '${_tempCoverageDir.path}/*.vm.json',
+      '${_tempCoverageDir.path}',
       '-o',
       lcovOutput.path,
     ];
