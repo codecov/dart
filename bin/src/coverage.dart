@@ -39,7 +39,7 @@ class Coverage {
 
     Logger log = new Logger('dcg');
     log.shout('did it');
-    Directory parent = new Directory(coverages[0].collectionOutput.parent);
+    Directory parent = coverages[0].collectionOutput.parent;
     log.shout(parent);
     log.shout(parent.listSync());
     log.shout(coverages[0].collectionOutput);
