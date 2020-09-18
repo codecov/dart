@@ -104,7 +104,7 @@ class Coverage {
       '--lcov',
       '--packages=.packages',
       '-i',
-      '${_tempCoverageDir.path}',
+      '${_tempCoverageDir.path}/',
       '-o',
       lcovOutput.path,
     ];
