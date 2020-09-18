@@ -17,7 +17,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 
 import 'env.dart';
 import 'test.dart' show Test, BrowserTest, VmTest;
