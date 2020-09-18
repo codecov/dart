@@ -95,8 +95,10 @@ class Coverage {
     log.shout('the dir ${_tempCoverageDir.path} exists?: ${await _tempCoverageDir.exists()}');
 
     Directory testDir = new Directory('${_tempCoverageDir.path}/test');
-    log.shout('the dir ${testDir.path}/test exists?: ${await testDir.exists()}');
-    List<FileSystemEntity> entities = new Directory('${_tempCoverageDir.path}/test').listSync();
+    log.shout('the dir ${testDir.path} exists?: ${await testDir.exists()}');
+    List<FileSystemEntity> entities = new Directory('${_tempCoverageDir.path}').listSync();
+
+    log.shout('entities: ${entities}');
     if (entities.length == 1 && entities[0] is File) {
       coverageFile = entities[0] as File;
     }
