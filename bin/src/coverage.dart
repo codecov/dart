@@ -87,7 +87,7 @@ class Coverage {
       '-r',
       'json',
       '--verbose-trace',
-      '--file-report',
+      '--file-reporter',
       'json:${collectionOutput.path}'
     ]);
     log.info('Coverage collected');
