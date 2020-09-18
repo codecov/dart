@@ -40,6 +40,9 @@ class Coverage {
     coverageDir.create();
     merged._tempCoverageDir = coverageDir;
 
+    bool exists = await Directory(coverageDir.path).exists();
+    log.shout('coverageDir: ${coverageDir.path} | ${exists}');
+
     Logger log = new Logger('dcg');
     for (int i = 1; i < coverages.length; i++) {
       Directory entityDir = new Directory('${coverages[i]._tempCoverageDir}/test');
