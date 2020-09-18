@@ -25,7 +25,7 @@ import 'test.dart' show Test, BrowserTest, VmTest;
 
 int _coverageCount = 0;
 const int _defaultObservatoryPort = 8444;
-const String _tempCoverageDirPath = '__temp_coverage';
+const String tempCoverageDirPath = '__temp_coverage';
 Directory coverageDir = new Directory('coverage');
 
 void _mergeCoveragePayloads(Map dest, Map source) {
@@ -38,7 +38,7 @@ class Coverage {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
     coverageDir.create();
-    merged._tempCoverageDir = coverageDir;
+    merged.tempCoverageDir = coverageDir;
     Logger log = new Logger('dcg');
 
     bool exists = await Directory(coverageDir.path).exists();
@@ -48,7 +48,7 @@ class Coverage {
 
     for (int i = 0; i < coverages.length; i++) {
       log.shout('coverage: ${coverages[i]}, i: ${i}');
-      Directory entityDir = new Directory('${coverages[i]._tempCoverageDir}/test');
+      Directory entityDir = new Directory('${coverages[i].tempCoverageDir}/test');
       log.shout('EntityDir: ${entityDir}');
       List<FileSystemEntity> entities = entityDir.listSync();
       log.shout('Entities ${entities}');
@@ -58,7 +58,7 @@ class Coverage {
           log.shout('Renaming: ${entity.path} to ${coverageDir.path}/$base');
           entity.rename('${coverageDir.path}/$base');
 
-          bool fileExists = await File('${coverageDir.path}/$base').exists();
+          bool fileExists = await File('${coverageDir.path}/$base-$i').exists();
           log.shout('it exists now?: ${fileExists}');
         }
       }
@@ -69,9 +69,9 @@ class Coverage {
 
   Test test;
   File lcovOutput;
-  Directory _tempCoverageDir;
-  Coverage(this.test) : _tempCoverageDir = new Directory('$_tempCoverageDirPath${_coverageCount++}') {
-    _tempCoverageDir.create();
+  Directory tempCoverageDir;
+  Coverage(this.test) : tempCoverageDir = new Directory('$tempCoverageDirPath${_coverageCount++}') {
+    tempCoverageDir.create();
   }
 
   Future<bool> collect() async {
@@ -93,7 +93,7 @@ class Coverage {
       'run',
       'test',
       '--coverage',
-      _tempCoverageDir.path,
+      tempCoverageDir.path,
     ]);
     log.info('Coverage collected');
 
@@ -113,14 +113,14 @@ class Coverage {
   Future<bool> format() async {
     Logger log = new Logger('dcg');
     log.info('Formatting coverage...');
-    lcovOutput = new File('${_tempCoverageDir.path}/coverage.lcov');
+    lcovOutput = new File('${tempCoverageDir.path}/coverage.lcov');
     List<String> args = [
       'run',
       'coverage:format_coverage',
       '--lcov',
       '--packages=.packages',
       '-i',
-      '${_tempCoverageDir.path}/',
+      '${tempCoverageDir.path}/',
       '-o',
       lcovOutput.path,
     ];
@@ -166,6 +166,6 @@ class Coverage {
     if (test != null) {
       test.cleanUp();
     }
-    _tempCoverageDir.deleteSync(recursive: true);
+    tempCoverageDir.deleteSync(recursive: true);
   }
 }
