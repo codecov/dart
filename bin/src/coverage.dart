@@ -39,6 +39,9 @@ class Coverage {
 
     Logger log = new Logger('dcg');
     log.shout('did it');
+    Directory parent = new Directory(parentOf(coverage[0].collectionOutput.path));
+    log.shout(parent);
+    log.shout(parent.listSync());
     log.shout(coverages[0].collectionOutput);
     log.shout(await coverages[0].collectionOutput.readAsString());
     Map mergedJson = json.decode(await coverages[0].collectionOutput.readAsString());
