@@ -39,10 +39,10 @@ class Coverage {
     merged._tempCoverageDir = coverageDir;
 
     for (int i = 1; i < coverages.length; i++) {
-      entities = coverages[i]._tempCoverageDir.listSync();
+      List<FileSystemEntity> entities = coverages[i]._tempCoverageDir.listSync();
       for (FileSystemEntity entity in entities) {
         if (entity is File) {
-          entity.rename('$coverageDir/${basename(entity.path)}';
+          entity.rename('$coverageDir/${basename(entity.path)}');
         }
       }
     }
