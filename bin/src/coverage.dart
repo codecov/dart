@@ -61,6 +61,9 @@ class Coverage {
   File lcovOutput;
   File coverageFile;
   Directory _tempCoverageDir;
+  Coverage(this.test) {
+    _coverageCount++;
+  }
 
   Future<bool> collect() async {
     _coverageCount++;
@@ -78,6 +81,7 @@ class Coverage {
 
     log.shout('Collecting coverage...');
     Directory _tempCoverageDir = new Directory('${coverageDir.path}/${_coverageCount}');
+    _tempCoverageDir.create();
 
     ProcessResult pr = await Process.run('pub', [
       'run',
