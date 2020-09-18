@@ -33,7 +33,7 @@ class Coverage {
     if (coverages.length == 0) throw new ArgumentError('Cannot merge an empty list of coverages.');
     Coverage merged = new Coverage(null);
     coverageDir.create();
-    merged.tempCoverageDir = coverageDir;
+    merged._tempCoverageDir = coverageDir;
 
     Logger log = new Logger('dcg');
     bool exists = await Directory(coverageDir.path).exists();
@@ -43,11 +43,11 @@ class Coverage {
     for (int i = 0; i < coverages.length; i++) {
       log.shout('coverage: ${coverages[i]}, i: ${i}');
 
-      if (coverages[i].coverageFile) {
+      if (await coverages[i].coverageFile.exists()) {
         File coverageFile = coverages[i].coverageFile;
         String base = path.basename(coverageFile.path);
         log.shout('Renaming: ${coverageFile.path} to ${coverageDir.path}/$base');
-        entity.rename('${coverageDir.path}/$i-$base');
+        coverageFile.rename('${coverageDir.path}/$i-$base');
 
         bool fileExists = await File('${coverageDir.path}/$i-$base').exists();
       }
@@ -61,9 +61,9 @@ class Coverage {
   File lcovOutput;
   File coverageFile;
   Directory _tempCoverageDir;
-  Coverage(this.test) : _coverageCount++;
 
   Future<bool> collect() async {
+    _coverageCount++;
     Logger log = new Logger('dcg');
     bool testSuccess = await test.run();
     if (!testSuccess) {
@@ -108,14 +108,14 @@ class Coverage {
   Future<bool> format() async {
     Logger log = new Logger('dcg');
     log.info('Formatting coverage...');
-    lcovOutput = new File('${tempCoverageDir.path}/coverage.lcov');
+    lcovOutput = new File('${_tempCoverageDir.path}/coverage.lcov');
     List<String> args = [
       'run',
       'coverage:format_coverage',
       '--lcov',
       '--packages=.packages',
       '-i',
-      '${tempCoverageDir.path}/',
+      '${_tempCoverageDir.path}/',
       '-o',
       lcovOutput.path,
     ];
@@ -161,6 +161,6 @@ class Coverage {
     if (test != null) {
       test.cleanUp();
     }
-    tempCoverageDir.deleteSync(recursive: true);
+    _tempCoverageDir.deleteSync(recursive: true);
   }
 }
