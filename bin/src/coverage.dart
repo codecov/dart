@@ -42,7 +42,8 @@ class Coverage {
       List<FileSystemEntity> entities = coverages[i]._tempCoverageDir.listSync();
       for (FileSystemEntity entity in entities) {
         if (entity is File) {
-          entity.rename('$coverageDir/${basename(entity.path)}');
+          String base = basename(entity.path);
+          entity.rename('$coverageDir/$base');
         }
       }
     }
