@@ -1,6 +1,12 @@
 language: dart
 dart:
   - stable
+  - dev
+  - "2.9.3"
+  - "2.8.4"
+  - "2.7.2"
+before_install:
+  - sudo apt-get -y install libc6
 script:
   - pub get --packages-dir
   - pub run test

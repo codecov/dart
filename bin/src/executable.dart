@@ -86,7 +86,7 @@ main(List<String> args) async {
 
   log.info('Test Files:');
   testFiles.forEach((String filePath) {
-    log.info('\t$filePath');
+    log.info('\tFile path: $filePath');
     if (!FileSystemEntity.isFileSync(filePath)) {
       log.severe('Given test file does not exist: ${new File(filePath).absolute.path}');
       exit(1);
@@ -121,7 +121,7 @@ main(List<String> args) async {
       exit(1);
     }
   }
-  coverage.cleanUp();
+  coverage.cleanUp(recursive: true);
 
   log.shout('\nCoverage generated!');
   if (lcovSuccess) {

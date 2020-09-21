@@ -1,5 +1,5 @@
 import "package:codecov_generator_example/example.dart";
-import "package:unittest/unittest.dart";
+import "package:test/test.dart";
 
 main() {
   group('sayHello', () {

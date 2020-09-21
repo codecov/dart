@@ -7,5 +7,5 @@ pub get
 generate coverage:
 
 ```dart
-dart ../bin/generate_coverage.dart test/example_test.dart
+dart ../bin/dart_codecov_generator.dart test/example_test.dart
 ```
