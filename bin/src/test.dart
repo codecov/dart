@@ -10,7 +10,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library dart_codecov_generator.bin.src.test;
+library codecov.bin.src.test;
 
 import 'dart:async';
 import 'dart:convert';
