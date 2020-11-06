@@ -1,1 +1,0 @@
-library dart_codecov_generator;

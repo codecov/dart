@@ -1,5 +1,5 @@
 @TestOn('vm')
-library dart_codecov_generator.test.env_test;
+library codecov.test.env_test;
 
 import 'package:test/test.dart';
 

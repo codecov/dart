@@ -1,5 +1,5 @@
 @TestOn('browser')
-library dart_codecov_generator.test.browser_test;
+library codecov.test.browser_test;
 
 import 'dart:html';
 

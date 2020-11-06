@@ -10,7 +10,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library dart_codecov_generator.bin.src.executable;
+library codecov.bin.src.executable;
 
 import 'dart:io';
 
