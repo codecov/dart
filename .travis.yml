@@ -1,7 +1,6 @@
 language: dart
 dart:
   - stable
-  - beta
   - "2.10.3"
   - "2.9.3"
   - "2.8.4"
