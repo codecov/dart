@@ -9,7 +9,7 @@ dart:
 before_install:
   - sudo apt-get -y install libc6
 script:
-  - pub get --packages-dir
+  - pub get
   - pub run test
   - pub run codecov --report-on=bin/ --no-html --verbose test/env_test.dart
   - bash <(curl -s https://codecov.io/bash)

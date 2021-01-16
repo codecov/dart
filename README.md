@@ -25,7 +25,7 @@ dev_dependencies:
 
 Install:
 ```
-pub get --packages-dir
+pub get
 ```
 
 
