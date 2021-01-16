@@ -18,9 +18,9 @@ Depends on the following utilities:
 
 Add this to your package's pubspec.yaml file:
 ```yaml
-dependencies:
-  coverage: "^0.7.0"
-  codecov: "^0.4.0"
+dev_dependencies:
+  coverage: ^0.15.0
+  codecov: ^1.0.0
 ```
 
 Install:
